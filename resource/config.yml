@@ -2,11 +2,11 @@ Teams-settings:
   teams-size: 3 #Size teams
   teams-available: 2 #Max teams available '4'
   teams-color: #please chose color here https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html
-    one: AQUA
-    two: RED
-    three: BLUE
-    four: GREEN
-  treams-prefix: #Teams colors is synchronized with list here (ChatColor : one -> AQUA | prefix : one -> Aqua)
+    one: "AQUA"
+    two: "RED"
+    three: "BLUE"
+    four: "GREEN"
+  teams-prefix: #Teams colors is synchronized with list here (ChatColor : one -> AQUA | prefix : one -> Aqua)
     one: "Aqua"
     two: "Red"
     Three: "Blue"
