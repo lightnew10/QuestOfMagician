@@ -11,11 +11,16 @@ public class TeamTempManager {
     /*
     List of Teams (4 teams max)
     */
-    private static ArrayList<Player> list_one_team = new ArrayList<>();
-    private static ArrayList<Player> list_two_team = new ArrayList<>();
-    private static ArrayList<Player> list_three_team = new ArrayList<>();
-    private static ArrayList<Player> list_four_team = new ArrayList<>();
+    public static ArrayList<Player> list_one_team = new ArrayList<>();
+    public static ArrayList<Player> list_two_team = new ArrayList<>();
+    public static ArrayList<Player> list_three_team = new ArrayList<>();
+    public static ArrayList<Player> list_four_team = new ArrayList<>();
 
+    public static boolean playerInNoTeam(Player player) {
+        if (list_one_team.contains(player) || list_two_team.contains(player) || list_three_team.contains(player) || list_four_team.contains(player))
+            return false;
+        return true;
+    }
     public static void removeAllTeam(Player player) {
         list_one_team.remove(player);
         list_two_team.remove(player);
@@ -55,7 +60,7 @@ public class TeamTempManager {
     public static String getPrefixTeamThree() {return QuestOfMagician.instance.getConfig().getString("Teams-settings.teams-prefix.three");}
     public static String getPrefixTeamFour() {return QuestOfMagician.instance.getConfig().getString("Teams-settings.teams-prefix.four");}
 
-    private static String getPrefixAndColorPlayer(Player player) {
+    public static String getPrefixAndColorPlayer(Player player) {
         String defaultPrefix = "No Team";
         if (list_one_team.contains(player))
             return getColorTeamOne() + getPrefixTeamOne();
@@ -67,7 +72,7 @@ public class TeamTempManager {
             return getColorTeamFour() + getPrefixTeamFour();
         return defaultPrefix;
     }
-    private static String getPrefixPlayer(Player player) {
+    public static String getPrefixPlayer(Player player) {
         String defaultPrefix = "No Team";
         if (list_one_team.contains(player))
             return getPrefixTeamOne();
@@ -79,7 +84,7 @@ public class TeamTempManager {
             return getPrefixTeamFour();
         return defaultPrefix;
     }
-    private static ChatColor getPrefixColorPlayer(Player player) {
+    public static ChatColor getPrefixColorPlayer(Player player) {
         ChatColor defaultColor = ChatColor.RESET;
         if (list_one_team.contains(player))
             return getColorTeamOne();

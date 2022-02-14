@@ -1,6 +1,6 @@
 Teams-settings:
   teams-size: 3 #Size teams
-  teams-available: 2 #Max teams available '4'
+  teams-available: 2 #Max teams available '4' and min team available '2'
   teams-color: #please chose color here https://hub.spigotmc.org/javadocs/spigot/org/bukkit/ChatColor.html
     one: "AQUA"
     two: "RED"
@@ -11,3 +11,57 @@ Teams-settings:
     two: "Red"
     Three: "Blue"
     Four: "Green"
+  item-in-gui-teams:
+    inventory:
+      size: 3
+      name: "&6Choose your Team"
+    one:
+      material: "AQUA_WOOL"
+      amount: 1
+      slot: 10
+      name: "&bAQUA"
+    two:
+      material: "RED_WOOL"
+      amount: 1
+      slot: 11
+      name: "&cRED"
+    three:
+      material: "BLUE_WOOL"
+      amount: 1
+      slot: 12
+      name: "&1BLUE"
+    four:
+      material: "GREEN_WOOL"
+      amount: 1
+      slot: 13
+      name: "&aGREEN"
+
+GameSettings: GameSettings.message-error.team-full
+  max-players: 10
+  item-choose-team:
+    material: "WHITE_WOOL"
+    amount: 1
+    slot: 3
+    name: "&cChoose your team"
+  item-choose-kit:
+    material: "ARROW"
+    amount: 1
+    slot: 5
+    name: "&cChoose your kit"
+  message-error:
+    team-full: "&cThis team is full"
+    already-in-team: "&cyou are already in this team"
+
+PlayerManager: #options : %player% -> player name | %players% -> Online Players | %max_players% -> max players available | %prefix% -> prefix player (enable in game state 'GAME')
+  join:
+    messages-join:
+      lobby: "&e%player% has joined the game &7(&6%players%/%max_players%&7)"
+      game: "&e%player% has re-joined the game"
+      end: ""
+    enable-custom-message: false
+    custom-message: ""
+  quit:
+    messages-quit:
+      lobby : "&e%player% left the game"
+      game: "&e%player% left the game"
+      end: ""

@@ -1,8 +1,10 @@
 package fr.lightnew.tools;
 
 import fr.lightnew.QuestOfMagician;
+import fr.lightnew.teams.TeamTempManager;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
 import org.bukkit.entity.Player;
 
 import java.io.File;
@@ -33,6 +35,7 @@ public class CreateFiles {
                 file.createNewFile();
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
                 config.set("Player-info.uuid", player.getUniqueId());
+                config.set("Player-info.Team", TeamTempManager.getPrefixPlayer(player));
                 config.set("Player-info.kills", 0);
                 config.set("Player-info.deaths", 0);
                 config.set("Player-info.successfully-quest", 0);
@@ -40,6 +43,18 @@ public class CreateFiles {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+
+    public static void removeFilesInFolder() {
+        try {
+            FileUtils.deleteDirectory(folderPlayerData);
+            FileUtils.deleteDirectory(folderTeams);
+            QuestOfMagician.log(ChatColor.RED + "le dossier " + folderPlayerData.getName() +" est supprimer");
+            QuestOfMagician.log(ChatColor.RED + "le dossier " + folderTeams.getName() +" est supprimer");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
