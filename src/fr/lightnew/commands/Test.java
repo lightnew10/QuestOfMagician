@@ -1,5 +1,6 @@
 package fr.lightnew.commands;
 
+import fr.lightnew.kits.FilesKits;
 import fr.lightnew.tools.SpawnPnj;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +20,11 @@ public class Test implements CommandExecutor {
                 String name = args[0];
                 SpawnPnj.send(player.getLocation(), Villager.Profession.CLERIC, Villager.Type.PLAINS, true, true, name);
             }
+        } else  {
+            sender.sendMessage("voilà ! ");
+            FilesKits.getAllFilesInFolder();
         }
+
         return false;
     }
 }

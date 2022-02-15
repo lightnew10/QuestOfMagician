@@ -6,6 +6,7 @@ import fr.lightnew.events.Interaction;
 import fr.lightnew.events.InventoryInteract;
 import fr.lightnew.events.PlayerManager;
 import fr.lightnew.game.GameStats;
+import fr.lightnew.kits.FilesKits;
 import fr.lightnew.tools.CreateFiles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -35,6 +36,9 @@ public class QuestOfMagician extends JavaPlugin {
             getConfig().set("Teams-settings.teams-available", 2);
         CreateFiles.sendFolder();
         CreateFiles.teamConfig();
+        //kits files
+        FilesKits.sendDefaultFolder();
+        //game state
         GameStats.setState(GameStats.LOBBY);
     }
 

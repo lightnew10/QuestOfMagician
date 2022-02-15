@@ -51,8 +51,8 @@ public class CreateFiles {
         try {
             FileUtils.deleteDirectory(folderPlayerData);
             FileUtils.deleteDirectory(folderTeams);
-            QuestOfMagician.log(ChatColor.RED + "le dossier " + folderPlayerData.getName() +" est supprimer");
-            QuestOfMagician.log(ChatColor.RED + "le dossier " + folderTeams.getName() +" est supprimer");
+            QuestOfMagician.log(ChatColor.RED + "" + folderPlayerData.getName() +" is deleted");
+            QuestOfMagician.log(ChatColor.RED + "" + folderTeams.getName() +" is deleted");
         } catch (IOException e) {
             e.printStackTrace();
         }
