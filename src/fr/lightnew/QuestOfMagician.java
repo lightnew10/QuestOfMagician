@@ -2,6 +2,8 @@ package fr.lightnew;
 
 import fr.lightnew.commands.Test;
 import fr.lightnew.events.CancelledEvents;
+import fr.lightnew.events.Interaction;
+import fr.lightnew.events.InventoryInteract;
 import fr.lightnew.events.PlayerManager;
 import fr.lightnew.game.GameStats;
 import fr.lightnew.tools.CreateFiles;
@@ -26,6 +28,8 @@ public class QuestOfMagician extends JavaPlugin {
         //TODO LISTENERS
         Bukkit.getPluginManager().registerEvents(new CancelledEvents(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerManager(), this);
+        Bukkit.getPluginManager().registerEvents(new Interaction(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryInteract(), this);
         //TODO DIVERS
         if (getConfig().getInt("Teams-settings.teams-available") < 2 || getConfig().getInt("Teams-settings.teams-available") > 4)
             getConfig().set("Teams-settings.teams-available", 2);

@@ -3,7 +3,6 @@ package fr.lightnew.game;
 import fr.lightnew.QuestOfMagician;
 import fr.lightnew.tools.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -15,7 +14,7 @@ public class GameSettings {
     private static FileConfiguration config = QuestOfMagician.instance.getConfig();
 
     //GUI CHOOSE TEAM
-    public static ItemStack ITEM_ONE = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.Teams-settings.item-in-gui-teams.one.material")), config.getInt("Teams-settings.item-in-gui-teams.one.amount"), config.getString("Teams-settings.item-in-gui-teams.one.name").replace('&', '§'));
+    public static ItemStack ITEM_ONE = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.one.material")), config.getInt("Teams-settings.item-in-gui-teams.one.amount"), config.getString("Teams-settings.item-in-gui-teams.one.name").replace('&', '§'));
     private static int slot_one = config.getInt("Teams-settings.item-in-gui-teams.one.slot");
     public static ItemStack ITEM_TWO = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.two.material")), config.getInt("Teams-settings.item-in-gui-teams.two.amount"), config.getString("Teams-settings.item-in-gui-teams.two.name").replace('&', '§'));
     private static int slot_two = config.getInt("Teams-settings.item-in-gui-teams.two.slot");
@@ -33,12 +32,20 @@ public class GameSettings {
         Inventory inv;
         if (config.getInt("Teams-settings.item-in-gui-teams.inventory.size") <=6)
             inv = Bukkit.createInventory(player, config.getInt("Teams-settings.item-in-gui-teams.inventory.size")*9, config.getString("Teams-settings.item-in-gui-teams.inventory.size").replace('&', '§'));
-        else inv = Bukkit.createInventory(player, 3*9, config.getString("Teams-settings.item-in-gui-teams.inventory.size").replace('&', '§'));
+        else
+            inv = Bukkit.createInventory(player, 3*9, config.getString("Teams-settings.item-in-gui-teams.inventory.size").replace('&', '§'));
         inv.clear();
-        inv.setItem(slot_one, ITEM_ONE);
-        inv.setItem(slot_two, ITEM_TWO);
-        inv.setItem(slot_three, ITEM_THREE);
-        inv.setItem(slot_four, ITEM_FOUR);
+
+        if (config.getInt("Teams-settings.teams-available") >= 2) {
+            if (config.getInt("Teams-settings.teams-available") >= 2) {
+                inv.setItem(slot_one, ITEM_ONE);
+                inv.setItem(slot_two, ITEM_TWO);
+            }
+            if (config.getInt("Teams-settings.teams-available") >= 3)
+                inv.setItem(slot_three, ITEM_THREE);
+            if (config.getInt("Teams-settings.teams-available") == 4)
+                inv.setItem(slot_four, ITEM_FOUR);
+        }
         player.openInventory(inv);
     }
     public static void sendInvChooseKits(Player player) {

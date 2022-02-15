@@ -3,8 +3,11 @@ package fr.lightnew.events;
 import fr.lightnew.QuestOfMagician;
 import fr.lightnew.game.GameSettings;
 import fr.lightnew.game.GameStats;
+import fr.lightnew.teams.ChangeNameTag;
+import fr.lightnew.teams.ChangeTeamAction;
 import fr.lightnew.teams.TeamTempManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -47,6 +50,7 @@ public class PlayerManager implements Listener {
 
         if (GameStats.isState(GameStats.LOBBY)) {
             event.setQuitMessage(replaceDefaultString(message_lobby, player));
+            ChangeNameTag.changePrefixNameAndColor(player, ChatColor.RESET, "", ChangeTeamAction.DESTROY);
         }
         if (GameStats.isState(GameStats.GAME)) {
             event.setQuitMessage(replaceDefaultString(message_game, player));

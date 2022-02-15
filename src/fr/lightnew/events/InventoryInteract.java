@@ -24,28 +24,28 @@ public class InventoryInteract implements Listener {
 
         if (item != null) {
             if (Objects.equals(item, GameSettings.ITEM_ONE)) {
-                if (TeamManager.getFullTeamOne())
+                if (!TeamManager.getFullTeamOne())
                     if (!TeamTempManager.list_one_team.contains(player))
                         TeamTempManager.setPlayerInTeamOne(player);
                     else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_already_in_team));
                 else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_full_team));
             }
             if (Objects.equals(item, GameSettings.ITEM_TWO)) {
-                if (TeamManager.getFullTeamTwo())
+                if (!TeamManager.getFullTeamTwo())
                     if (!TeamTempManager.list_two_team.contains(player))
                         TeamTempManager.setPlayerInTeamTwo(player);
                     else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_already_in_team));
                 else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_full_team));
             }
             if (Objects.equals(item, GameSettings.ITEM_THREE)) {
-                if (TeamManager.getFullTeamThree())
+                if (!TeamManager.getFullTeamThree())
                     if (!TeamTempManager.list_three_team.contains(player))
                         TeamTempManager.setPlayerInTeamThree(player);
                     else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_already_in_team));
                 else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_full_team));
             }
             if (Objects.equals(item, GameSettings.ITEM_FOUR)) {
-                if (TeamManager.getFullTeamFour())
+                if (!TeamManager.getFullTeamFour())
                     if (!TeamTempManager.list_four_team.contains(player))
                         TeamTempManager.setPlayerInTeamFour(player);
                     else player.sendMessage(ChatColor.translateAlternateColorCodes('&', message_already_in_team));

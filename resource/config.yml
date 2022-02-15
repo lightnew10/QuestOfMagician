@@ -16,7 +16,7 @@ Teams-settings:
       size: 3
       name: "&6Choose your Team"
     one:
-      material: "AQUA_WOOL"
+      material: "CYAN_WOOL"
       amount: 1
       slot: 10
       name: "&bAQUA"
@@ -36,7 +36,7 @@ Teams-settings:
       slot: 13
       name: "&aGREEN"
 
-GameSettings: GameSettings.message-error.team-full
+GameSettings:
   max-players: 10
   item-choose-team:
     material: "WHITE_WOOL"
