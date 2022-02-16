@@ -34,12 +34,15 @@ public class QuestOfMagician extends JavaPlugin {
         //TODO DIVERS
         if (getConfig().getInt("Teams-settings.teams-available") < 2 || getConfig().getInt("Teams-settings.teams-available") > 4)
             getConfig().set("Teams-settings.teams-available", 2);
-        CreateFiles.sendFolder();
-        CreateFiles.teamConfig();
-        //kits files
-        FilesKits.sendDefaultFolder();
+        //create Files and Folder
+        createAllFiles();
         //game state
         GameStats.setState(GameStats.LOBBY);
+    }
+    private void createAllFiles() {
+        FilesKits.sendDefaultFolder();
+        CreateFiles.sendFolder();
+        CreateFiles.teamConfig();
     }
 
     @Override

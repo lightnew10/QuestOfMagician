@@ -79,7 +79,7 @@ public class CreateFiles {
             if (!file.exists()) {
                 file.createNewFile();
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-                config.set("Teams.amount", 2 + "#Max 4 teams");
+                config.set("Teams.amount", 2 + " #Max 4 teams");
                 config.save(file);
             }
         } catch (IOException e) {
