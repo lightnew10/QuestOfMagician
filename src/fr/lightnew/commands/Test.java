@@ -22,7 +22,7 @@ public class Test implements CommandExecutor {
             }
         } else  {
             sender.sendMessage("voilà ! ");
-            FilesKits.getAllFilesInFolder();
+            FilesKits.getItemsInFileKits();
         }
 
         return false;

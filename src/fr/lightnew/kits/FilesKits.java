@@ -4,6 +4,7 @@ import com.sun.istack.internal.NotNull;
 import fr.lightnew.QuestOfMagician;
 import fr.lightnew.tools.ColorLists;
 import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -80,75 +81,63 @@ public class FilesKits {
         return null;
     }
 
-    public static ItemStack getItemsInFileKits() {
+    public static void getItemsInFileKits() {
         ItemStack item;
         ItemMeta meta;
         YamlConfiguration config;
 
         File[] files = folder.listFiles();
-        for (File file : files) {
-            config = YamlConfiguration.loadConfiguration(file);
-            ConfigurationSection section = config.getConfigurationSection("kit.items");
-            FileConfiguration fc = config;
-            for (String key : section.getKeys(false)) {
+        if (files.length > 0) {
+            for (File file : files) {
+                if (!file.getName().equals("configKits.yml")) {
+                    //parameter file
+                    config = YamlConfiguration.loadConfiguration(file);
+                    ConfigurationSection section = config.getConfigurationSection("kit.items");
+                    FileConfiguration fc = config;
+                    //verify
+                    if (section != null) {
+                        //search in file
+                        for (String key : section.getKeys(false)) {
 
-                String material = fc.getString("kit.items." + key + ".material");
-                int amount = fc.getInt("kit.items." + key + ".amount");
-                String name = fc.getString("kit.items." + key + ".name");
-                List<String> lores = fc.getStringList("kit.items." + key + ".lores");
-                lores = ColorLists.color(lores);
+                            //create parameter for create item
+                            String material = fc.getString("kit.items." + key + ".material");
+                            int amount = fc.getInt("kit.items." + key + ".amount");
+                            String name = fc.getString("kit.items." + key + ".name");
+                            List<String> lores = fc.getStringList("kit.items." + key + ".lores");
+                            String[] enchantments = fc.getStringList("kit.items" + key + ".enchantments").toArray(new String[0]);
+                            String[] enchantmentLevels = fc.getStringList("kit.items" + key + ".enchantmentLevels").toArray(new String[0]);
+                            //leather stuff
 
-                item = new ItemStack(Material.getMaterial(material), amount);
-                meta = item.getItemMeta();
+                            lores = ColorLists.color(lores);
+                            //create item
 
-                meta.setLore(lores);
-                meta.setDisplayName(name);
+                            if (Material.getMaterial(material) != null) {
+                                if (amount < 1)
+                                    item = new ItemStack(Material.getMaterial(material), 1);
+                                else
+                                    item = new ItemStack(Material.getMaterial(material), amount);
+                            } else item = new ItemStack(Material.STONE, 1);
+
+                            meta = item.getItemMeta();
+
+                            if (lores.size() > 0)
+                                meta.setLore(lores);
+                            if (name != null)
+                                meta.setDisplayName(name);
+
+                            if (enchantments != null && enchantmentLevels != null && enchantments.length == enchantmentLevels.length)
+                                for (int i = 0; i < enchantments.length; i++)
+                                    item.addEnchantment(Enchantment.getByName(enchantments[i]), Integer.parseInt(enchantmentLevels[i]));
+
+                            //parameter leather stuff soon
+                            //...
+
+                            item.setItemMeta(meta);
+                            System.out.println(item);
+                        }
+                    }
+                }
             }
         }
-
-        return null;
     }
-        /*
-        ConfigurationSection section = folder.getConfigurationSection("gui-shop-"+line_config+".items");
-        FileConfiguration fc = folder;
-        for (String key : section.getKeys(false)) {
-
-            int amount = fc.getInt(line_config_modif + "." + key + ".amount");
-            List<Integer> slot = fc.getIntegerList(line_config_modif + "." + key + ".slot");
-            int data = fc.getInt(line_config_modif + "." + key + ".data");
-            String name = fc.getString(line_config_modif + "." + key + ".name");
-            String material = fc.getString(line_config_modif + "." + key + ".material");
-            List<String> lores = fc.getStringList(line_config_modif + "." + key + ".lores");
-            lores = ColorList.send(lores);
-
-            ItemStack item = new ItemStack(Material.getMaterial(material), amount);
-            MaterialData materialData = new MaterialData(data);
-            item.setData(materialData);
-            ItemMeta meta = item.getItemMeta();
-
-            meta.setDisplayName(name.replace('&', '§'));
-            meta.setLore(lores);
-            if (fc.getBoolean(line_config_modif + "." + key + ".glowing")) {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 1, false);
-                meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            }
-        }
-
-            item.setItemMeta(meta);*/
-
-    /*
-    * Kits:
-    *   combatant:
-    *       name: "combatant"
-    *       items:
-    *           sword:
-    *               material: IRON_SWORD
-    *               name: "&cCombatant"
-    *               unbreakable:  false
-    *           apple:
-    *               material: apple
-    *               name: "pomme"
-    *               unbreakable: false
-    * ...
-    * */
 }
