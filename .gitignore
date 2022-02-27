@@ -1,5 +1,7 @@
-# Project exclude paths
-/out/
-.idea
+# Intellij
 out/
-QuestOfMagician.iml
+.idea/
+**.iml
+
+# Maven
+target/

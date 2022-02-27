@@ -1,0 +1,11 @@
+name: ${project.name}
+main: fr.lightnew.QuestOfMagician
+version: ${plugin.version}
+author: [${git.branch.authors}]
+website: ${project.url}
+api-version: 1.16
+load: POSTWORLD
+description: ${project.description}
+prefix: Quest of Magician
+commands:
+  test:
