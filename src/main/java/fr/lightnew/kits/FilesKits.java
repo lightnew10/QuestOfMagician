@@ -45,6 +45,16 @@ public class FilesKits {
                 config.set("kit.gui.item.slot", 10);
                 config.set("kit.gui.item.lore", new ArrayList<String>());
 
+                List<String> eff = new ArrayList<>();
+                eff.add("ABSORPTION");
+                config.set("kit.player.effect.name", eff);
+                List<Integer> dur = new ArrayList<>();
+                dur.add(9999);
+                config.set("kit.player.effect.duration", dur);
+                List<Integer> am = new ArrayList<>();
+                am.add(1);
+                config.set("kit.player.effect.amplifier", am);
+
                 config.set("kit.items.sword.material", "IRON_SWORD");
                 config.set("kit.items.sword.name", "&eKit 1");
                 config.set("kit.items.sword.amount", 1);

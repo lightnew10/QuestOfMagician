@@ -16,6 +16,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.File;
 import java.util.List;
@@ -46,22 +48,20 @@ public class KitManager {
                 //verify
                 if (section != null) {
                     //search in file
-                    for (String key : section.getKeys(false)) {
 
-                        //create parameter for create item
-                        String material = fc.getString("kit.gui.item.material");
-                        int slot = fc.getInt("kit.gui.item.slot");
-                        String name = fc.getString("kit.gui.item.name");
-                        List<String> lore = fc.getStringList("kit.gui.item.lore");
+                    //create parameter for create item
+                    String material = fc.getString("kit.gui.item.material");
+                    int slot = fc.getInt("kit.gui.item.slot");
+                    String name = fc.getString("kit.gui.item.name");
+                    List<String> lore = fc.getStringList("kit.gui.item.lore");
 
-                        item = new ItemStack(Material.getMaterial(material), 1);
-                        meta = item.getItemMeta();
-                        meta.setDisplayName(name.replace('&', '§'));
-                        meta.setLore(ColorLists.color(lore));
-                        item.setItemMeta(meta);
-                        //set items
-                        inv.setItem(slot, item);
-                    }
+                    item = new ItemStack(Material.getMaterial(material), 1);
+                    meta = item.getItemMeta();
+                    meta.setDisplayName(name.replace('&', '§'));
+                    meta.setLore(ColorLists.color(lore));
+                    item.setItemMeta(meta);
+                    //set items
+                    inv.setItem(slot, item);
                 }
             }
         }
@@ -107,7 +107,9 @@ public class KitManager {
                     int color = fc.getInt("kit.items" + key + ".colorLeather");
                     boolean unbreakable = fc.getBoolean("kit.items" + key + ".unbreakable");
                     boolean glowing = fc.getBoolean("kit.items" + key + ".glowing");
-                    int slot = fc.getInt("kit.items" + key + ".slot");
+                    List<String> effect = fc.getStringList("kit.items" + key + ".effect");
+                    List<Integer> duration = fc.getIntegerList("kit.items" + key + ".duration");
+                    List<Integer> amplifier= fc.getIntegerList("kit.items" + key + ".amplifier");
                     lores = ColorLists.color(lores);
                     //create item
 
@@ -153,6 +155,15 @@ public class KitManager {
                     item.setItemMeta(meta);
 
                     player.getInventory().addItem(item);
+                    if (effect != null && duration != null && amplifier != null) {
+                        for (String s : effect) {
+                            for (int i : duration) {
+                                for (int ii : amplifier) {
+                                    player.addPotionEffect(new PotionEffect(PotionEffectType.getByName(s), i, ii));
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
