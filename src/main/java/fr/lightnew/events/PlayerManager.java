@@ -48,7 +48,7 @@ public class PlayerManager implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        String message_lobby = player.getName() + " à quitter la partie " + ChatColor.GRAY + "(" + ChatColor.GREEN + Bukkit.getOnlinePlayers().size() + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
+        String message_lobby = player.getName() + " à quitter la partie " + ChatColor.GRAY + "(" + ChatColor.GREEN + (Bukkit.getOnlinePlayers().size()-1) + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
         String message_game = player.getName() + " à quitter la partie";
         String message_end = "";
 
