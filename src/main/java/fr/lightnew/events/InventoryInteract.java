@@ -1,26 +1,34 @@
 package fr.lightnew.events;
 
-import fr.lightnew.QuestOfMagician;
-import fr.lightnew.game.GameSettings;
-import fr.lightnew.teams.TeamManager;
+import fr.lightnew.game.GameStats;
+import fr.lightnew.kits.FilesKits;
+import fr.lightnew.kits.KitManager;
 import fr.lightnew.teams.TeamTempManager;
+import fr.lightnew.tools.ColorLists;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
+import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 public class InventoryInteract implements Listener {
-    private final String message_already_in_team = QuestOfMagician.instance.getConfig().getString("GameSettings.message-error.already-in-team");
-    private final String message_full_team = QuestOfMagician.instance.getConfig().getString("GameSettings.message-error.team-full");
+    private final String message_already_in_team = ChatColor.RED + "Vous êtes déjà dans cette équipe !";
+    private final String message_full_team = ChatColor.RED + "Cette équipe est pleine";
+    private final int max_equip = 5;
 
     @EventHandler
     public void onInvInteract(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
         ItemStack item = event.getCurrentItem();
+
+        if (GameStats.isState(GameStats.LOBBY) || GameStats.isState(GameStats.END))
+            event.setCancelled(true);
 
         if (item != null) {
             if (Objects.equals(item, GameSettings.ITEM_ONE)) {

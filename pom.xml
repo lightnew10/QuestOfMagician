@@ -36,11 +36,6 @@
         </developer>
     </developers>
 
-    <properties>
-        <commit.version>${git.branch.name}-${git.commit.last.sha1_short}</commit.version>
-        <plugin.version>git-${commit.version}</plugin.version>
-    </properties>
-
     <pluginRepositories>
         <pluginRepository>
             <id>mrcubee-public</id>

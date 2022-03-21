@@ -10,7 +10,6 @@ import fr.lightnew.kits.FilesKits;
 import fr.lightnew.tools.CreateFiles;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 /*
 Created by @lightnew french developer
@@ -26,6 +25,7 @@ public class QuestOfMagician extends JavaPlugin {
         log("[" + ChatColor.GREEN + "Quest Of Magician" + ChatColor.RESET + "] is Enable");
         //TODO COMMANDS
         getCommand("test").setExecutor(new Test());
+        getCommand("state").setExecutor(new StateCommand());
         //TODO LISTENERS
         Bukkit.getPluginManager().registerEvents(new CancelledEvents(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerManager(), this);
@@ -42,7 +42,6 @@ public class QuestOfMagician extends JavaPlugin {
     private void createAllFiles() {
         FilesKits.sendDefaultFolder();
         CreateFiles.sendFolder();
-        CreateFiles.teamConfig();
     }
 
     @Override

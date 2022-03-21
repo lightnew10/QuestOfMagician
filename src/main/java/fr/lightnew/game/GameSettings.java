@@ -1,58 +1,72 @@
 package fr.lightnew.game;
 
-import fr.lightnew.QuestOfMagician;
+import fr.lightnew.teams.TeamTempManager;
 import fr.lightnew.tools.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 public class GameSettings {
 
-    private static FileConfiguration config = QuestOfMagician.instance.getConfig();
+    public static ItemStack TEAMS = ItemBuilder.create(Material.WHITE_WOOL, 1, ChatColor.YELLOW + "Choisi ton équipe");
+    public static ItemStack KITS = ItemBuilder.create(Material.CHEST, 1, ChatColor.YELLOW + "Choisi ton kit");
 
-    //GUI CHOOSE TEAM
-    public static ItemStack ITEM_ONE = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.one.material")), config.getInt("Teams-settings.item-in-gui-teams.one.amount"), config.getString("Teams-settings.item-in-gui-teams.one.name").replace('&', '§'));
-    private static int slot_one = config.getInt("Teams-settings.item-in-gui-teams.one.slot");
-    public static ItemStack ITEM_TWO = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.two.material")), config.getInt("Teams-settings.item-in-gui-teams.two.amount"), config.getString("Teams-settings.item-in-gui-teams.two.name").replace('&', '§'));
-    private static int slot_two = config.getInt("Teams-settings.item-in-gui-teams.two.slot");
-    public static ItemStack ITEM_THREE = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.three.material")), config.getInt("Teams-settings.item-in-gui-teams.three.amount"), config.getString("Teams-settings.item-in-gui-teams.three.name").replace('&', '§'));
-    private static int slot_three = config.getInt("Teams-settings.item-in-gui-teams.three.slot");
-    public static ItemStack ITEM_FOUR = ItemBuilder.create(Material.getMaterial(config.getString("Teams-settings.item-in-gui-teams.four.material")), config.getInt("Teams-settings.item-in-gui-teams.four.amount"), config.getString("Teams-settings.item-in-gui-teams.four.name").replace('&', '§'));
-    private static int slot_four = config.getInt("Teams-settings.item-in-gui-teams.four.slot");
-    //INV PLAYER BASE
-    public static ItemStack ITEM_CHOOSE_TEAM = ItemBuilder.create(Material.getMaterial(config.getString("GameSettings.item-choose-team.material")), config.getInt("GameSettings.item-choose-team.amount"), config.getString("GameSettings.item-choose-team.name").replace('&', '§'));
-    private static int slot_choose_team = config.getInt("GameSettings.item-choose-team.slot");
-    public static ItemStack ITEM_KITS = ItemBuilder.create(Material.getMaterial(config.getString("GameSettings.item-choose-kit.material")), config.getInt("GameSettings.item-choose-kit.amount"), config.getString("GameSettings.item-choose-kit.name").replace('&', '§'));
-    private static int slot_choose_kit = config.getInt("GameSettings.item-choose-kit.slot");
+    public static void getInvTeamGUI(Player player) {
+        Inventory inv = Bukkit.createInventory(player, 3 * 9, ChatColor.YELLOW + "Choix de l'équipe");
 
-    public static void sendInvChooseTeams(Player player) {
-        Inventory inv;
-        if (config.getInt("Teams-settings.item-in-gui-teams.inventory.size") <=6)
-            inv = Bukkit.createInventory(player, config.getInt("Teams-settings.item-in-gui-teams.inventory.size")*9, config.getString("Teams-settings.item-in-gui-teams.inventory.size").replace('&', '§'));
-        else
-            inv = Bukkit.createInventory(player, 3*9, config.getString("Teams-settings.item-in-gui-teams.inventory.size").replace('&', '§'));
-        inv.clear();
+        ItemStack TEAM_AQUA = ItemBuilder.create(Material.CYAN_WOOL, 1, ChatColor.AQUA + "Cyan");
+        ItemStack TEAM_RED = ItemBuilder.create(Material.RED_WOOL, 1, ChatColor.RED + "Rouge");
 
-        if (config.getInt("Teams-settings.teams-available") >= 2) {
-            if (config.getInt("Teams-settings.teams-available") >= 2) {
-                inv.setItem(slot_one, ITEM_ONE);
-                inv.setItem(slot_two, ITEM_TWO);
-            }
-            if (config.getInt("Teams-settings.teams-available") >= 3)
-                inv.setItem(slot_three, ITEM_THREE);
-            if (config.getInt("Teams-settings.teams-available") == 4)
-                inv.setItem(slot_four, ITEM_FOUR);
+        List<String> loreAqua = new ArrayList<>();
+        List<String> loreRed = new ArrayList<>();
+
+        ItemMeta metaAQUA = TEAM_AQUA.getItemMeta();
+        ItemMeta metaRED = TEAM_RED.getItemMeta();
+
+        if(TeamTempManager.list_one_team.contains(player)){
+            metaAQUA.addEnchant(Enchantment.DURABILITY ,1, true);
+            metaRED.removeEnchant(Enchantment.DURABILITY);
+            metaAQUA.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        } else if(TeamTempManager.list_two_team.contains(player)){
+            metaRED.addEnchant(Enchantment.DURABILITY ,1, true);
+            metaAQUA.removeEnchant(Enchantment.DURABILITY);
+            metaRED.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
+
+        loreAqua.clear();
+        loreRed.clear();
+
+        loreAqua.add(ChatColor.YELLOW + "Equipe:");
+        loreAqua.add(ChatColor.LIGHT_PURPLE + "");
+        loreRed.add(ChatColor.YELLOW + "Equipe:");
+        loreRed.add(ChatColor.LIGHT_PURPLE + "");
+
+        if(TeamTempManager.list_one_team.size() == 0)
+            loreAqua.add(ChatColor.GRAY + "- Vide");
+        if(TeamTempManager.list_two_team.size() == 0)
+            loreRed.add(ChatColor.GRAY + "- Vide");
+
+        for(Player players : TeamTempManager.list_one_team)
+            loreAqua.add(ChatColor.GRAY + "- " + ChatColor.AQUA + "AQUA " + ChatColor.WHITE + players.getName());
+        for(Player players : TeamTempManager.list_two_team)
+            loreRed.add(ChatColor.GRAY + "- " + ChatColor.RED + "RED " + ChatColor.WHITE + players.getName());
+
+        loreRed.add(ChatColor.DARK_GREEN + "");
+        loreAqua.add(ChatColor.DARK_GREEN + "");
+
+        metaAQUA.setLore(loreAqua);
+        metaRED.setLore(loreRed);
+
+        TEAM_AQUA.setItemMeta(metaAQUA);
+        TEAM_RED.setItemMeta(metaRED);
+
+        inv.setItem(12, TEAM_AQUA);
+        inv.setItem(14, TEAM_RED);
         player.openInventory(inv);
-    }
-    public static void sendInvChooseKits(Player player) {
-        Inventory inv = Bukkit.createInventory(player, 3*9, "kit");
-    }
-    public static void sendBaseLobby(Player player) {
-        player.getInventory().setItem(slot_choose_team, ITEM_CHOOSE_TEAM);
-        player.getInventory().setItem(slot_choose_kit, ITEM_KITS);
+
     }
 }

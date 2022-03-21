@@ -1,6 +1,7 @@
 package fr.lightnew.events;
 
 import fr.lightnew.game.GameSettings;
+import fr.lightnew.kits.KitManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -19,16 +19,6 @@ public class TeamManager {
             return true;
         return false;
     }
-    public static Boolean getFullTeamThree()  {
-        if (TeamTempManager.list_three_team.size() == QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-size"))
-            return true;
-        return false;
-    }
-    public static Boolean getFullTeamFour() {
-        if (TeamTempManager.list_four_team.size() == QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-size"))
-            return true;
-        return false;
-    }
 
     //this function is used for set player in no team in 'random' team
     public static void setPlayerInRandomTeam(Player player) {
@@ -39,29 +29,13 @@ public class TeamManager {
                 QuestOfMagician.instance.getConfig().set("Teams-settings.teams-size", r);
             }
             //this is no optimize !
-            if (!TeamTempManager.list_one_team.contains(player) || !TeamTempManager.list_two_team.contains(player) ||
-                    !TeamTempManager.list_three_team.contains(player) || !TeamTempManager.list_four_team.contains(player)) {
+            if (!TeamTempManager.list_one_team.contains(player) || !TeamTempManager.list_two_team.contains(player)) {
                 if (QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available") == 2) {
                     if (!getFullTeamOne())
                         TeamTempManager.list_one_team.add(player);
                     else TeamTempManager.list_two_team.add(player);
-                } else if (QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available") == 3) {
-                    if (!getFullTeamOne())
-                        TeamTempManager.list_one_team.add(player);
-                    else if (!getFullTeamTwo())
-                        TeamTempManager.list_two_team.add(player);
-                    else TeamTempManager.list_three_team.add(player);
-                } else if (QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available") == 4) {
-                    if (!getFullTeamOne())
-                        TeamTempManager.list_one_team.add(player);
-                    else if (!getFullTeamTwo())
-                        TeamTempManager.list_two_team.add(player);
-                    else if (!getFullTeamThree())
-                        TeamTempManager.list_three_team.add(player);
-                    else TeamTempManager.list_four_team.add(player);
                 }
             }
-
         }
     }
 

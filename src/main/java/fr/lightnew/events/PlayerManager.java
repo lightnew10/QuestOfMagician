@@ -1,67 +1,65 @@
 package fr.lightnew.events;
 
-import fr.lightnew.QuestOfMagician;
 import fr.lightnew.game.GameSettings;
 import fr.lightnew.game.GameStats;
-import fr.lightnew.teams.ChangeNameTag;
-import fr.lightnew.teams.ChangeTeamAction;
+import fr.lightnew.kits.KitManager;
 import fr.lightnew.teams.TeamTempManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-import java.util.Collection;
-
 public class PlayerManager implements Listener {
-    private int max_players = QuestOfMagician.instance.getConfig().getInt("GameSettings.max-players");
+    private int max_players = 10;
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        if (Bukkit.getOnlinePlayers().size() >= max_players)
+            player.kickPlayer(ChatColor.RED + "Serveur Plein");
         for (int i = 0; i < 40; i++)
             player.getInventory().clear(i);
 
-        String message_lobby = QuestOfMagician.instance.getConfig().getString("PlayerManager.join.messages-join.lobby");
-        String message_game = QuestOfMagician.instance.getConfig().getString("PlayerManager.join.messages-join.game");
-        String message_end = QuestOfMagician.instance.getConfig().getString("PlayerManager.join.messages-join.end");
+        String message_lobby = ChatColor.YELLOW + player.getName() + " à rejoins la partie " + ChatColor.GRAY + "(" + ChatColor.GOLD + Bukkit.getOnlinePlayers().size() + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
+        String message_game = player.getName() + " à rejoins la partie !";
+        String message_end = "";
 
         if (GameStats.isState(GameStats.LOBBY)) {
-            event.setJoinMessage(replaceDefaultString(message_lobby, player));
-            GameSettings.sendBaseLobby(player);
+            player.setGameMode(GameMode.ADVENTURE);
+            event.setJoinMessage(message_lobby);
+            //add player in default kit
+            KitManager.setDefautlKit(player);
+            //add prefix bellow name
+            player.getInventory().setItem(2, GameSettings.TEAMS);
+            player.getInventory().setItem(6, GameSettings.KITS);
         }
         if (GameStats.isState(GameStats.GAME)) {
-            event.setJoinMessage(replaceDefaultString(message_game, player));
+            event.setJoinMessage(message_game);
         }
         if (GameStats.isState(GameStats.END)) {
-            event.setJoinMessage(replaceDefaultString(message_end, player));
+            event.setJoinMessage(message_end);
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        String message_lobby = QuestOfMagician.instance.getConfig().getString("PlayerManager.quit.messages-quit.lobby");
-        String message_game = QuestOfMagician.instance.getConfig().getString("PlayerManager.quit.messages-quit.game");
-        String message_end = QuestOfMagician.instance.getConfig().getString("PlayerManager.quit.messages-quit.end");
+        String message_lobby = player.getName() + " à quitter la partie " + ChatColor.GRAY + "(" + ChatColor.GREEN + Bukkit.getOnlinePlayers().size() + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
+        String message_game = player.getName() + " à quitter la partie";
+        String message_end = "";
 
-        if (GameStats.isState(GameStats.LOBBY)) {
-            event.setQuitMessage(replaceDefaultString(message_lobby, player));
-            ChangeNameTag.changePrefixNameAndColor(player, ChatColor.RESET, "", ChangeTeamAction.DESTROY);
-        }
-        if (GameStats.isState(GameStats.GAME)) {
-            event.setQuitMessage(replaceDefaultString(message_game, player));
-        }
-        if (GameStats.isState(GameStats.END)) {
-            event.setQuitMessage(replaceDefaultString(message_end, player));
-        }
-    }
-    private String replaceDefaultString(String s, Player player) {
-        Collection<? extends Player> players = Bukkit.getOnlinePlayers();
-        return s.replace('&', '§').replace("%players%", String.valueOf(players.size()))
-                .replace("%max_players%", String.valueOf(max_players)).replace("%prefix%", TeamTempManager.getPrefixPlayer(player)).replace("%player%", player.getName());
+        if (GameStats.isState(GameStats.LOBBY))
+            event.setQuitMessage(message_lobby);
+
+        if (GameStats.isState(GameStats.GAME))
+            event.setQuitMessage(message_game);
+
+        if (GameStats.isState(GameStats.END))
+            event.setQuitMessage(message_end);
+        TeamTempManager.removePlayerFromTeam(player);
     }
 }

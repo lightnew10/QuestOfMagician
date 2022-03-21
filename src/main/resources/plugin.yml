@@ -1,11 +1,12 @@
-name: ${project.name}
+name: QuestOfMagician
 main: fr.lightnew.QuestOfMagician
-version: ${plugin.version}
-author: [${git.branch.authors}]
-website: ${project.url}
+version: 1.0
+authors: [lightnew,Tweikow]
+website: github.com/lightnew10
 api-version: 1.16
 load: POSTWORLD
-description: ${project.description}
+description: more information in github
 prefix: Quest of Magician
 commands:
   test:
+  state:
