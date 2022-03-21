@@ -107,9 +107,9 @@ public class KitManager {
                     int color = fc.getInt("kit.items" + key + ".colorLeather");
                     boolean unbreakable = fc.getBoolean("kit.items" + key + ".unbreakable");
                     boolean glowing = fc.getBoolean("kit.items" + key + ".glowing");
-                    List<String> effect = fc.getStringList("kit.items" + key + ".effect");
-                    List<Integer> duration = fc.getIntegerList("kit.items" + key + ".duration");
-                    List<Integer> amplifier= fc.getIntegerList("kit.items" + key + ".amplifier");
+                    List<String> effect = fc.getStringList("kit.player.effect.name");
+                    List<Integer> duration = fc.getIntegerList("kit.player.effect.duration");
+                    List<Integer> amplifier= fc.getIntegerList("kit.player.effect.amplifier");
                     lores = ColorLists.color(lores);
                     //create item
 
