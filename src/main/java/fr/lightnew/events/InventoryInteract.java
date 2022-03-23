@@ -20,7 +20,6 @@ import java.util.Objects;
 public class InventoryInteract implements Listener {
     private final String message_already_in_team = ChatColor.RED + "Vous êtes déjà dans cette équipe !";
     private final String message_full_team = ChatColor.RED + "Cette équipe est pleine";
-    private final int max_equip = 5;
 
     @EventHandler
     public void onInvInteract(InventoryClickEvent event) {
