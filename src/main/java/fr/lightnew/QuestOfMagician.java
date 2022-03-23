@@ -6,6 +6,7 @@ import fr.lightnew.events.Interaction;
 import fr.lightnew.events.InventoryInteract;
 import fr.lightnew.events.PlayerManager;
 import fr.lightnew.game.GameStats;
+import fr.lightnew.game.TimerGameSettings;
 import fr.lightnew.kits.FilesKits;
 import fr.lightnew.tools.CreateFiles;
 import org.bukkit.Bukkit;
@@ -26,6 +27,7 @@ public class QuestOfMagician extends JavaPlugin {
         //TODO COMMANDS
         getCommand("test").setExecutor(new Test());
         getCommand("state").setExecutor(new StateCommand());
+        getCommand("speed").setExecutor(new Speed());
         //TODO LISTENERS
         Bukkit.getPluginManager().registerEvents(new CancelledEvents(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerManager(), this);
@@ -38,6 +40,8 @@ public class QuestOfMagician extends JavaPlugin {
         createAllFiles();
         //game state
         GameStats.setState(GameStats.LOBBY);
+        //timer
+        TimerGameSettings.timerLobby();
     }
     private void createAllFiles() {
         FilesKits.sendDefaultFolder();

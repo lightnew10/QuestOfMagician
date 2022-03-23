@@ -1,5 +1,6 @@
 package fr.lightnew.game;
 
+import fr.lightnew.teams.TeamManager;
 import fr.lightnew.teams.TeamTempManager;
 import fr.lightnew.tools.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -69,4 +70,19 @@ public class GameSettings {
         player.openInventory(inv);
 
     }
+
+    /*GameConfig*/
+    public static void launchGame() {
+        TimerGameSettings.timerGame();
+        for (Player player : Bukkit.getOnlinePlayers())
+            TeamManager.setPlayerInTeams(player);
+        //tp players
+        //send scoreboard
+        //start random quest
+    }
+
+    public static void launchEnd() {
+        TimerGameSettings.timerEnd();
+    }
+
 }

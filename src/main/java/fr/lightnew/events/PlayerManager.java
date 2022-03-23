@@ -2,6 +2,7 @@ package fr.lightnew.events;
 
 import fr.lightnew.game.GameSettings;
 import fr.lightnew.game.GameStats;
+import fr.lightnew.game.TimerGameSettings;
 import fr.lightnew.kits.KitManager;
 import fr.lightnew.teams.TeamTempManager;
 import org.bukkit.Bukkit;
@@ -12,6 +13,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import javax.swing.*;
 
 public class PlayerManager implements Listener {
     private int max_players = 10;
@@ -48,7 +51,7 @@ public class PlayerManager implements Listener {
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        String message_lobby = player.getName() + " à quitter la partie " + ChatColor.GRAY + "(" + ChatColor.GREEN + (Bukkit.getOnlinePlayers().size()-1) + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
+        String message_lobby = ChatColor.YELLOW + player.getName() + " à quitter la partie " + ChatColor.GRAY + "(" + ChatColor.GOLD + (Bukkit.getOnlinePlayers().size()-1) + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
         String message_game = player.getName() + " à quitter la partie";
         String message_end = "";
 
@@ -62,4 +65,6 @@ public class PlayerManager implements Listener {
             event.setQuitMessage(message_end);
         TeamTempManager.removePlayerFromTeam(player);
     }
+
+    private void rejoinPlayerInGame(Player player){}
 }

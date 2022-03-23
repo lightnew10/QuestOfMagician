@@ -21,6 +21,7 @@ public class TeamManager {
     }
 
     //this function is used for set player in no team in 'random' team
+    //TODO RE-CODE THIS FUNCTION
     public static void setPlayerInRandomTeam(Player player) {
         if (TeamTempManager.playerInNoTeam(player)) {
             int t = QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-size") * QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available");
