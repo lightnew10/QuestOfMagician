@@ -1,5 +1,6 @@
 package fr.lightnew;
 
+import fr.lightnew.commands.StateCommand;
 import fr.lightnew.commands.Test;
 import fr.lightnew.events.CancelledEvents;
 import fr.lightnew.events.Interaction;

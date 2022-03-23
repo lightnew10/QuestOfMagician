@@ -83,6 +83,9 @@ public class GameSettings {
 
     public static void launchEnd() {
         TimerGameSettings.timerEnd();
+        //tp player
+        //send scoreboard
+        //prepare stop server
     }
 
 }
