@@ -21,21 +21,17 @@ public class TeamManager {
     }
 
     //this function is used for set player in no team in 'random' team
-    //TODO RE-CODE THIS FUNCTION
     public static void setPlayerInRandomTeam(Player player) {
         if (TeamTempManager.playerInNoTeam(player)) {
-            int t = QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-size") * QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available");
-            if (Bukkit.getOnlinePlayers().size() < t) {
-                int r = Bukkit.getOnlinePlayers().size() / 2;
-                QuestOfMagician.instance.getConfig().set("Teams-settings.teams-size", r);
-            }
-            //this is no optimize !
+            int t = TeamTempManager.size_teams * 2;
+            if (Bukkit.getOnlinePlayers().size() < t)
+                TeamTempManager.size_teams = Bukkit.getOnlinePlayers().size() / 2;
+
             if (!TeamTempManager.list_one_team.contains(player) || !TeamTempManager.list_two_team.contains(player)) {
-                if (QuestOfMagician.instance.getConfig().getInt("Teams-settings.teams-available") == 2) {
-                    if (!getFullTeamOne())
-                        TeamTempManager.list_one_team.add(player);
-                    else TeamTempManager.list_two_team.add(player);
-                }
+                if (!getFullTeamOne())
+                    TeamTempManager.list_one_team.add(player);
+                else
+                    TeamTempManager.list_two_team.add(player);
             }
         }
     }

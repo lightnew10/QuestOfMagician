@@ -28,7 +28,6 @@ public class QuestOfMagician extends JavaPlugin {
         //TODO COMMANDS
         getCommand("test").setExecutor(new Test());
         getCommand("state").setExecutor(new StateCommand());
-        getCommand("speed").setExecutor(new Speed());
         //TODO LISTENERS
         Bukkit.getPluginManager().registerEvents(new CancelledEvents(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerManager(), this);
@@ -56,4 +55,7 @@ public class QuestOfMagician extends JavaPlugin {
     }
 
     public static void log(String s) { Bukkit.getConsoleSender().sendMessage(s);}
+
+    /*ADD MYSQL*/
+
 }

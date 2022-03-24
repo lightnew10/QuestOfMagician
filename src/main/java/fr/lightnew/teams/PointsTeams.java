@@ -10,5 +10,4 @@ public class PointsTeams {
     public static void setPointsAqua(int amount){points_aqua = points_aqua+amount;}
     public static void setPointsRed(int amount){points_red = points_red+amount;}
 
-
 }
