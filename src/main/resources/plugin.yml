@@ -10,3 +10,4 @@ prefix: Quest of Magician
 commands:
   test:
   state:
+  setspawn:

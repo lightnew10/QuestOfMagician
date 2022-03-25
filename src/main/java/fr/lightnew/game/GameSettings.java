@@ -1,5 +1,6 @@
 package fr.lightnew.game;
 
+import fr.lightnew.commands.SpawnTeams;
 import fr.lightnew.teams.TeamManager;
 import fr.lightnew.teams.TeamTempManager;
 import fr.lightnew.tools.ItemBuilder;
@@ -74,17 +75,30 @@ public class GameSettings {
     /*GameConfig*/
     public static void launchGame() {
         TimerGameSettings.timerGame();
-        for (Player player : Bukkit.getOnlinePlayers())
+        for (Player player : Bukkit.getOnlinePlayers()) {
             TeamManager.setPlayerInTeams(player);
-        //tp players
-        //send scoreboard
+            //tp players
+            if (TeamTempManager.list_one_team.contains(player))
+                if (SpawnTeams.getLocationAqua() != null)
+                    player.teleport(SpawnTeams.getLocationAqua());
+
+            if (TeamTempManager.list_two_team.contains(player))
+                if (SpawnTeams.getLocationRed() != null)
+                    player.teleport(SpawnTeams.getLocationRed());
+            //send scoreboard
+        }
         //start random quest
     }
 
     public static void launchEnd() {
         TimerGameSettings.timerEnd();
-        //tp player
-        //send scoreboard
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            TeamManager.setPlayerInTeams(player);
+            //tp players
+            if (SpawnTeams.getLocationEnd() != null)
+                player.teleport(SpawnTeams.getLocationEnd());
+            //send scoreboard
+        }
         //prepare stop server
     }
 

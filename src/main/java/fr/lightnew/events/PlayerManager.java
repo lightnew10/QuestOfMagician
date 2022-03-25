@@ -1,5 +1,6 @@
 package fr.lightnew.events;
 
+import fr.lightnew.commands.SpawnTeams;
 import fr.lightnew.game.GameSettings;
 import fr.lightnew.game.GameStats;
 import fr.lightnew.game.TimerGameSettings;
@@ -30,6 +31,9 @@ public class PlayerManager implements Listener {
         String message_lobby = ChatColor.YELLOW + player.getName() + " à rejoins la partie " + ChatColor.GRAY + "(" + ChatColor.GOLD + Bukkit.getOnlinePlayers().size() + ChatColor.RESET + "/" + ChatColor.YELLOW + 10 + ChatColor.GRAY + ")";
         String message_game = player.getName() + " à rejoins la partie !";
         String message_end = "";
+
+        if (SpawnTeams.getLocationSpawn() != null)
+            player.teleport(SpawnTeams.getLocationSpawn());
 
         if (GameStats.isState(GameStats.LOBBY)) {
             player.setGameMode(GameMode.ADVENTURE);

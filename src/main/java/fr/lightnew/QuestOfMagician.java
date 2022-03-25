@@ -1,5 +1,6 @@
 package fr.lightnew;
 
+import fr.lightnew.commands.SpawnTeams;
 import fr.lightnew.commands.StateCommand;
 import fr.lightnew.commands.Test;
 import fr.lightnew.events.CancelledEvents;
@@ -28,6 +29,7 @@ public class QuestOfMagician extends JavaPlugin {
         //TODO COMMANDS
         getCommand("test").setExecutor(new Test());
         getCommand("state").setExecutor(new StateCommand());
+        getCommand("setspawn").setExecutor(new SpawnTeams());
         //TODO LISTENERS
         Bukkit.getPluginManager().registerEvents(new CancelledEvents(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerManager(), this);
